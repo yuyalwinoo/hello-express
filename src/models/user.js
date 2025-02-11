@@ -51,27 +51,27 @@ userSchema.methods.isPasswordMatch = async function (password) {
 };
 
 userSchema.methods.generateAccessToken = async function () {
-    jwt.sign(
+    return jwt.sign(
         {
-            _id: this._id,
-            email: this.email,
-            username: this.username,
+        _id: this._id,
+        email: this.email,
+        username: this.username,
         },
-        process.env.ACCESSTOKEN_SECRET_KEY,
+        process.env.ACCESS_TOKEN_SECRET_KEY,
         {
-            expiresIn: ACCESSTOKEN_EXP_TIME,
+        expiresIn: process.env.ACCESS_TOKEN_EXP_TIME,
         }
     );
 };
-  
+
 userSchema.methods.generateRefreshToken = async function () {
-    jwt.sign(
+    return jwt.sign(
         {
-            _id: this._id,
+        _id: this._id,
         },
         process.env.REFRESH_TOKEN_SECRET_KEY,
         {
-            expiresIn: REFRESH_TOKEN_EXP_TIME,
+        expiresIn: process.env.REFRESH_TOKEN_EXP_TIME,
         }
     );
 };
